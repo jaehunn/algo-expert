@@ -6,7 +6,6 @@ class BinaryTree {
     }
 }
 
-// 1 1 2 2 2 2 3 3
 function nodeDepths(root) { 
     let sum = 0;
 
