@@ -8,7 +8,7 @@ class BinaryTree {
 
 function branchSums(root) {
   let result = [];
-  let sum = 0;
+  let sum = 0;5hn
 
   helper(root);
 
