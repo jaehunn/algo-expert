@@ -1,9 +1,49 @@
-// 4x4
-// +4 +3
-// -3 -2
-// +2 +1
-// -1 -0
-// end
+function spiralTraverse(array, res = []) {
+  // x = row
+  // y = col
+
+  // range
+  let startX = 0;
+  let endX = array.length - 1;
+
+  let startY = 0;
+  let endY = array[0].length - 1;
+
+  while (startX <= endX && startY <= endY) {
+    // 1. y++
+    for (let y = startY; y <= endY; y += 1) {
+      res.push(array[startX][y]);
+    }
+
+    // 2. x++
+    for (let x = startX + 1; x <= endX; x += 1) {
+      res.push(array[x][endY]);
+    }
+
+    // 3. y--
+    for (let y = endY - 1; y >= startY; y -= 1) {
+      if (startX === endX) break;
+
+      res.push(array[endX][y]);
+    }
+
+    // 4. x--
+    for (let x = endX - 1; x > startX; x -= 1) {
+      if (startY === endY) break;
+
+      res.push(array[x][startY]);
+    }
+
+    // scale down
+    startX += 1;
+    endX -= 1;
+
+    startY += 1;
+    endY -= 1;
+  }
+
+  return res;
+}
 
 // O(n) / O(n)
 function spiralTraverse(array) {
@@ -37,12 +77,12 @@ function spiralTraverse(array) {
       if (startCol === endCol) break;
       result.push(array[row][startCol]);
     }
-  }
 
-  startRow += 1;
-  endRow -= 1;
-  startCol += 1;
-  endCol -= 1;
+    startRow += 1;
+    endRow -= 1;
+    startCol += 1;
+    endCol -= 1;
+  }
 
   return result;
 }
