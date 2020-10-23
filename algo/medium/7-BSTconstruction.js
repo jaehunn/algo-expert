@@ -41,44 +41,53 @@ class BST {
 
   // remove() 로직 정립
   // 1. 삭제할 노드 찾기
-  // 2. WIP...
+  // 2. 노드 유형 ()
 
   // Average: O(log n) / O(log n)
   // Worst: O(n) / O(n)
   remove(value, parent = null) {
+    // find
     if (value < this.value) {
       if (this.left) this.left.remove(value, this);
     } else if (value > this.value) {
       if (this.right) this.right.remove(value, this);
+
+      // find: this.value === value
     } else {
+      // swap(this, getLeftLeaf) -> delete(getLeftLeaf)
       if (this.left && this.right) {
-        this.value = this.right.getMinValue();
+        this.value = this.right.getLeftLeaf();
+
         this.right.remove(this.value, this);
       } else if (!parent) {
-        // root
+        // left || right: unbalanced, root node
         if (this.left) {
           this.value = this.left.value;
-          this.right = this.left.right;
           this.left = this.left.left;
+          this.right = this.left.right;
         } else if (this.right) {
           this.value = this.right.value;
           this.left = this.right.left;
           this.right = this.right.right;
         }
-      } else if (parent.left === this) {
-        parent.left = this.left ? this.left : this.right;
-      } else if (parent.right === this) {
-        parent.right = this.left ? this.left : this.right;
+        // single node: NOOP
+      } else {
+        // unbalanced, etc or leaf
+        if (parent.left === this) {
+          parent.left = this.left ? this.left : this.right;
+        } else if (parent.right === this) {
+          parent.right = this.left ? this.left : this.right;
+        }
       }
     }
 
     return this;
   }
 
-  getMinValue() {
+  getLeftLeaf() {
     if (!this.left) return this.value;
 
-    return this.left.getMinValue();
+    return this.left.getLeftLeaf();
   }
 }
 
@@ -89,5 +98,69 @@ class BST {
     this.value = value;
     this.left = null;
     this.right = null;
+  }
+
+  // Average: O(log n) / O(1)
+  // Worst: O(n) / O(1)
+  insert(value) {
+    let currentNode = this;
+
+    while (currentNode) {
+      if (value < currentNode.value) {
+        if (!currentNode.left) {
+          currentNode.left = new BST(value);
+
+          return this;
+        }
+
+        currentNode = currentNode.left;
+      } else {
+        // if these nodes value be same, then add to right child
+        if (!currentNode.right) {
+          currentNode.right = new BST(value);
+
+          return this;
+        }
+        currentNode = currentNode.right;
+      }
+    }
+
+    return this;
+  }
+
+  // Average: O(log n) / O(1)
+  // Worst: O(n) / O(1)
+  contains(value) {
+    let currentNode = this;
+
+    while (currentNode) {
+      if (value === currentNode.value) return true;
+
+      if (value < currentNode.value) {
+        currentNode = currentNode.left;
+      } else currentNode = currentNode.right;
+    }
+
+    return false;
+  }
+
+  remove(value, parentNode = null) {
+    let currentNode = this;
+
+    while (currentNode) {
+      if (value < currentNode.value) {
+        parentNode = currentNode;
+        currentNode = currentNode.left;
+      } else if (value > currnetNode.value) {
+        parentNode = currentNode;
+        currentNode = currentnode.right;
+      }
+    }
+  }
+
+  getLeftLeaf() {
+    if (!this.left) return this.value;
+
+    return this.left.getLeftLeaf();
   }
 }
