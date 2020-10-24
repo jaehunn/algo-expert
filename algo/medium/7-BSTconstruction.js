@@ -20,9 +20,6 @@ class BST {
     return this;
   }
 
-  // else 대신 guard 절 적극활용
-  // 재귀함수의 반환값을 원함수로 끌어와야 정상적인 결과도출 가능
-
   // Average: O(log n) / O(log n)
   // Worst: O(n) / O(n)
   contains(value) {
@@ -39,9 +36,7 @@ class BST {
     }
   }
 
-  // remove() 로직 정립
-  // 1. 삭제할 노드 찾기
-  // 2. 노드 유형 ()
+  // 자신을 가리킬 포인터가 필요하다.
 
   // Average: O(log n) / O(log n)
   // Worst: O(n) / O(n)
@@ -63,8 +58,8 @@ class BST {
         // left || right: unbalanced, root node
         if (this.left) {
           this.value = this.left.value;
-          this.left = this.left.left;
           this.right = this.left.right;
+          this.left = this.left.left;
         } else if (this.right) {
           this.value = this.right.value;
           this.left = this.right.left;
