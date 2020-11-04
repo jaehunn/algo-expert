@@ -1,11 +1,6 @@
 // ex) denoms = [1, 5], n = 6
-// f[0] = { ø } = 1
-// f[1] = f[1 - 1] + f[1 - 5] = 1 + 0 = 1
-// f[2] = f[2 - 1] + f[2 - 5] = 1 + 0 = 1
-// ...
-// f[n] = f[n - 1] + f[n - 5]
-
-// => f[n] = sigma(f[n - x1] + f[n - x2] + f[n - x3] + ...)
+// denom: 1 -> [1 2 2 2 2 2 2]
+// denom: 5 -> [1 2 2 2 2 3 3]
 
 // iteration
 function numberOfWaysToMakeChange(n, denoms) {
