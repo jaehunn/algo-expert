@@ -9,3 +9,12 @@ function kadanesAlgorithm(array) {
 
   return cur;
 }
+
+// in-place
+function _kadanesAlgorithm(array) {
+  for (let i = 1; i < array.length; i += 1) {
+    array[i] = Math.max(array[i - 1] + array[i], array[i]);
+  }
+
+  return Math.max(...array);
+}
