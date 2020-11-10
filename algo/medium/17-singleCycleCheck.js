@@ -1,18 +1,21 @@
-// wip
+// O(n) / O(1)
 function hasSingleCycle(array) {
-  let l = array.length;
-  let i = 0;
-  while (l--) {
-    i += array[i];
+  let numElementVisited = 0;
+  let currentIdx = 0;
+  while (numElementVisited++ < array.length) {
+    if (numElementVisited > 0 && currentIdx === 0) return false;
 
-    if (i === 0) return false;
-
-    // normalize
-    while (i < 0) i += array.length;
-    while (i >= array.length) i -= array.length;
+    currentIdx = getNextIdx(currentIdx, array);
   }
 
-  return i === 0;
+  return currentIdx === 0;
 }
 
-// [1, 2, 3, 4, -2, 3, 7, 8, -8]
+// 모든 인덱스를 거쳤다면 첫 인덱스로 돌아와야 사이클이 생성된다.
+// getNextIdx() 에서 배열 값의 범위를 정규화시켜야한다. 범위를 벗어나는 큰 음수의 경우도 mod 연산을 이용한다.
+
+function getNextIdx(currentIdx, array) {
+  const nextIdx = (currentIdx + array[currentIdx]) % array.length; // normalize
+
+  return nextIdx >= 0 ? nextIdx : nextIdx + array.length; // to positive
+}
