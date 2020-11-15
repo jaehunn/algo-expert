@@ -58,15 +58,93 @@ class Heap {
     return this.heapContainer[this.getParentIndex(childIndex)];
   }
 
-  heapifyUp() {}
+  heapifyUp(startIndex = this.heapContainer.length - 1) {
+    // swap condition
+    // Max heap: NOT (parent > child)
+    // Min heap: NOT (parent < child)
+    while (
+      this.hasParent(startIndex) &&
+      !this.pairIsInCorrectOrder(
+        this.parent(currentIndex),
+        this.heapContainer[startIndex]
+      )
+    ) {
+      // swap
+      [
+        this.heapContainer[startIndex],
+        this.heapContainer[this.getParentIndex(startIndex)],
+      ] = [
+        this.heapContainer[this.getParentIndex(startIndex)],
+        this.heapContainer[startIndex],
+      ];
 
-  heapifyDown() {}
+      // move
+      startIndex = this.getParentIndex(startIndex);
+    }
+  }
 
-  extract() {}
+  heapifyDown(startIndex = 0) {
+    let childIndex = null;
+    while (this.hasLeftChild(startIndex)) {
+      // get child
+      if (
+        this.hasRightChild(startIndex) &&
+        this.pairIsInCorrectOrder(
+          this.rightChild(startIndex),
+          this.leftChild(startIndex)
+        )
+      ) {
+        childIndex = this.getRightChildIndex(startIndex);
+      } else {
+        childIndex = this.getLeftChildIndex(startIndex);
+      }
 
-  add() {}
+      // guard condition
+      if (
+        this.pairIsInCorrectOrder(
+          this.heapContainer[startIndex],
+          this.heapContainer[childIndex]
+        )
+      ) {
+        break;
+      }
 
-  remove() {}
+      // swap
+      [this.heapContainer[startIndex], this.heapContainer[childIndex]] = [
+        this.heapContainer[childIndex],
+        this.heapContainer[startIndex],
+      ];
+
+      // move
+      startIndex = childIndex;
+    }
+  }
+
+  extract() {
+    if (this.isEmpty() || this.heapContainer.length === 1) return null;
+
+    const rootNode = this.heapContainer[0];
+
+    // new root <- leaf
+    this.heapContainer[0] = this.heapContainer.pop();
+
+    // sort
+    this.heapifyDown();
+
+    return rootNode;
+  }
+
+  add(node) {
+    this.heapContainer.push(node);
+
+    // sort
+    this.heapifyUp();
+
+    return this;
+  }
+
+  // wip
+  remove(node) {}
 
   find(node) {
     const indices = [];
