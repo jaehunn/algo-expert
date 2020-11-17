@@ -1,17 +1,38 @@
+// array in-place
 class MinHeap {
   constructor(array) {
     this.heap = this.buildHeap(array);
   }
 
+  // wip
   buildHeap(array) {}
 
   siftDown() {}
 
   siftUp() {}
 
-  peek() {}
+  peek() {
+    return this.heap[0];
+  }
 
-  remove() {}
+  // O(log n) / O(1)
+  remove() {
+    const leaf = this.heap.pop();
 
-  insert(value) {}
+    // swap(root, leaf)
+    this.heap[0] = leaf;
+
+    // heapifyDown()
+    this.siftDown();
+
+    return leaf;
+  }
+
+  // O(log n) / O(1)
+  insert(node) {
+    this.heap.push(node);
+
+    // heapifyUp()
+    this.siftUp();
+  }
 }

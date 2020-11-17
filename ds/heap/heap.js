@@ -143,8 +143,33 @@ class Heap {
     return this;
   }
 
-  // wip
-  remove(node) {}
+  remove(node) {
+    const removeItems = this.find(node);
+
+    for (const removeIndex of removeItems) {
+      if (removeIndex === this.heapContainer.length - 1)
+        this.heapContainer.pop();
+      else {
+        // remove node <- leaf
+        this.heapContainer[removeIndex] = this.heapContainer.pop();
+
+        // sort
+        const parentNode = this.parent(removeIndex);
+        if (
+          this.hasLeftChild(removeIndex) &&
+          (!parentNode ||
+            this.pairIsInCorrectOrder(
+              parentNode,
+              this.heapContainer[removeIndex]
+            ))
+        )
+          this.heapifyDown(removeIndex);
+        else this.heapifyUp(removeIndex);
+      }
+    }
+
+    return this;
+  }
 
   find(node) {
     const indices = [];
