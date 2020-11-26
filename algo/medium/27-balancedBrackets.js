@@ -1,34 +1,35 @@
 // parentheses-valid 문제는 stack 으로 풀린다.
 
-// 매번 괄호를 매칭하기 번거로우므로 hash table 로 괄호를 관리하면 편하다
-// split 보다 Array.from() 을 사용하자 (더 명시적이다)
+// string 은 iterable 하므로 곧바로 for-of 로 돌려도된다. Array.from 으로 바꿀필요가없다.
+// 보통 괄호 타당성문제는 괄호만 들어오는 것이 전제지만, 이 문제는 일반 문자열도 들어온다.
 
-// 여는 괄호에 대해서는 매칭되는 값을 stack 에 집어넣는다. 여는 괄호와 닫는 괄호는 hash table 에서 키와 값이 바뀌어도 상관없다
-// 닫는 괄호 조건을 탔을 때, guard 로 처리하면 깔끔하다. 여기서 주의할 점이 있다.
-// guard 를 하지않으면 ([]}) 와 같은 구성을 만났을때 } 를 무시하고 [ 와 매칭되는 ] 을 만나 결국 valid 처리가 되므로 주의한다.
+// ([]}) 의 경우에 일반 문자열과 스택에 포함되지 않은 닫는 괄호를 같이 무시하면 true 가 된다. (주의)
+// 애초에 괄호에 대해서만 처리하도록 validation wrapping 하자.
+// 다시 상기하지만, 우아하게 풀려고하지말자. 정확하고 철저한 논리로 접근하는 것이 중요하다.
 
-// 괄호가 아닌 문자열과 구별되도록 닫는 괄호를 판단해야한다.
-// 괄호아닌 문자열과 여는 괄호에 포함되지 않는 닫는 괄호를 구분지어야한다.*wip
-
+// O(n) / O(n)
 function balancedBrackets(string) {
-  const h = {
-    "(": ")",
-    "{": "}",
-    "[": "]",
+  const openingBrackets = "([{";
+  const closingBrackets = ")]}";
+
+  const matchingBrackets = {
+    ")": "(",
+    "]": "[",
+    "}": "{",
   };
 
-  const list = Array.from(string);
-  const stk = [];
-  while (list.length) {
-    const brk = list.shift();
+  const stack = [];
+  for (const char of string) {
+    if (openingBrackets.includes(char)) {
+      stack.push(char);
+    } else if (closingBrackets.includes(char)) {
+      // empty
+      if (stack.length === 0) return false;
 
-    // open
-    if (brk in h) stk.push(h[brk]);
-
-    // close
-    // wip
-    if (stk.incldues(brk) && brk !== stk.pop()) return false;
+      // top
+      if (stack[stack.legnth - 1] === matchingBrackets[char]) {
+        stack.pop();
+      } else false;
+    }
   }
-
-  return !stk.length;
 }
