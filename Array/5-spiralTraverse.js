@@ -1,49 +1,12 @@
-function spiralTraverse(array, res = []) {
-  // x = row
-  // y = col
+/**
+ * Write a function that takes in an n x m two-dimensional array (that can be square-shaped when n == m)
+ * and returns a one-dimensional array of all the array's elements in spiral order.
+ *
+ * Spiral order starts at the top left corner of the two-dimensional array, goes to the right, and proceeds in a spiral pattern all the way until every element has been visited.
+ */
 
-  // range
-  let startX = 0;
-  let endX = array.length - 1;
-
-  let startY = 0;
-  let endY = array[0].length - 1;
-
-  while (startX <= endX && startY <= endY) {
-    // 1. y++
-    for (let y = startY; y <= endY; y += 1) {
-      res.push(array[startX][y]);
-    }
-
-    // 2. x++
-    for (let x = startX + 1; x <= endX; x += 1) {
-      res.push(array[x][endY]);
-    }
-
-    // 3. y--
-    for (let y = endY - 1; y >= startY; y -= 1) {
-      if (startX === endX) break;
-
-      res.push(array[endX][y]);
-    }
-
-    // 4. x--
-    for (let x = endX - 1; x > startX; x -= 1) {
-      if (startY === endY) break;
-
-      res.push(array[x][startY]);
-    }
-
-    // scale down
-    startX += 1;
-    endX -= 1;
-
-    startY += 1;
-    endY -= 1;
-  }
-
-  return res;
-}
+// 우 -> 하 -> 좌 -> 상 4가지 동작이 한 패턴으로 움직인다.
+// 한 패턴이 완성되면 전체 2차원 배열의 사이즈는 상하좌우로 1씩 줄어든다.
 
 // O(n) / O(n)
 function spiralTraverse(array) {
@@ -56,28 +19,29 @@ function spiralTraverse(array) {
   let endCol = array[0].length - 1;
 
   while (startRow <= endRow && startCol <= endCol) {
-    // +col
+    // right
     for (let col = startCol; col <= endCol; col += 1) {
       result.push(array[startRow][col]);
     }
 
-    // +row
+    // down
     for (let row = startRow + 1; row <= endRow; row += 1) {
       result.push(array[row][endCol]);
     }
 
-    // -col
+    // left
     for (let col = endCol - 1; col >= startCol; col -= 1) {
       if (startRow === endRow) break;
       result.push(array[endRow][col]);
     }
 
-    // -row
+    // up
     for (let row = endRow - 1; row > startRow; row -= 1) {
       if (startCol === endCol) break;
       result.push(array[row][startCol]);
     }
 
+    // 사이즈를 좁힌다
     startRow += 1;
     endRow -= 1;
     startCol += 1;
@@ -87,21 +51,16 @@ function spiralTraverse(array) {
   return result;
 }
 
-// 패턴을 정의하고 최소 단위를 반복한다. (반복문 또는 재귀)
-// 변수를 많이 정의하는 것을 두려워하지마라. 동작이 우선이다.
-// 반복문의 증감은 나중에 진행된다. 주의!
-// 처음부터 우아하게 풀려고 하지말 것
-
 // O(n) / O(n)
-function _spiralTraverse(array) {
+function spiralTraverse(array) {
   const result = [];
 
-  _spiralFill(array, 0, array.length - 1, 0, array[0].length - 1, result);
+  spiralFill(array, 0, array.length - 1, 0, array[0].length - 1, result);
 
   return result;
 }
 
-function _spiralFill(array, startRow, endRow, startCol, endCol, result) {
+function spiralFill(array, startRow, endRow, startCol, endCol, result) {
   if (startRow > endRow || startCol > endCol) return;
 
   for (let col = startCol; col <= endCol; col += 1) {
