@@ -9,7 +9,7 @@
 // 양 끝단에 포인터를 위치시키고, 앞에서부터 toMove 인 원소를 찾으면 끝부터 toMove 가 아닌 원소와 바꾼다.
 
 // O(n) / O(1)
-function moveElementToEnd(array, toMove) {
+function moveElementToEnd(array: number[], toMove: number) {
   let i = 0;
   let j = array.length - 1;
 

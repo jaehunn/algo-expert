@@ -9,8 +9,8 @@
 // 한 패턴이 완성되면 전체 2차원 배열의 사이즈는 상하좌우로 1씩 줄어든다.
 
 // O(n) / O(n)
-function spiralTraverse(array) {
-  const result = [];
+function spiralTraverse(array: number[][]) {
+  const result: number[] = [];
 
   let startRow = 0;
   let endRow = array.length - 1;
@@ -52,7 +52,7 @@ function spiralTraverse(array) {
 }
 
 // O(n) / O(n)
-function spiralTraverse(array) {
+function _spiralTraverse(array: number[][]) {
   const result = [];
 
   spiralFill(array, 0, array.length - 1, 0, array[0].length - 1, result);
@@ -60,7 +60,14 @@ function spiralTraverse(array) {
   return result;
 }
 
-function spiralFill(array, startRow, endRow, startCol, endCol, result) {
+function spiralFill(
+  array: number[][],
+  startRow: number,
+  endRow: number,
+  startCol: number,
+  endCol: number,
+  result: number[]
+) {
   if (startRow > endRow || startCol > endCol) return;
 
   for (let col = startCol; col <= endCol; col += 1) {

@@ -11,7 +11,7 @@
 // peak 한 세 요소를 찾으면 좌우로 인덱스를 확장시킨다.
 
 // O(n) / O(1)
-function longestPeak(array) {
+function longestPeak(array: number[]) {
   let longestPeakLength = 0;
   let i = 1;
 

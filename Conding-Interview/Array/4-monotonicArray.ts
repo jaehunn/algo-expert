@@ -15,7 +15,7 @@
 // 플래그 두개를 OR 연산으로 결과 판단 (둘다 만족하지 못하는 경우를 골라내기)
 
 // O(n) / O(1)
-function isMonotonic(array) {
+function isMonotonic(array: number[]) {
   if (array.length <= 2) return true;
 
   let direction = array[1] - array[0];
@@ -32,7 +32,11 @@ function isMonotonic(array) {
   return true;
 }
 
-function breakDirection(direction, previousInt, currentInt) {
+function breakDirection(
+  direction: number,
+  previousInt: number,
+  currentInt: number
+) {
   const difference = currentInt - previousInt;
 
   if (direction > 0) return difference < 0;
@@ -44,7 +48,7 @@ function breakDirection(direction, previousInt, currentInt) {
 // 플래그는 복구될 수 없다.
 
 // O(n) / O(1)
-function isMonotonic(array) {
+function _isMonotonic(array: number[]) {
   let isNonDecreasing = true;
   let isNonIncreasing = true;
 
