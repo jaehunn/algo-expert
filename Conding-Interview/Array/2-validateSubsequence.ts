@@ -10,7 +10,7 @@
 */
 
 // O(n) / O(1)
-function isValidSubsequence(array, sequence) {
+function isValidSubsequence(array: number[], sequence: number[]) {
   let arrIdx = 0;
   let seqIdx = 0;
 
@@ -26,7 +26,7 @@ function isValidSubsequence(array, sequence) {
 }
 
 // O(n) / O(1)
-function isValidSubsequence(array, sequence) {
+function _isValidSubsequence(array: number[], sequence: number[]) {
   let seqIdx = 0;
 
   // array 를 순회하며 sequence 의 고정인덱스 seqIdx 를 조정한다.

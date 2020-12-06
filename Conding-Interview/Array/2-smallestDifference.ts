@@ -16,33 +16,38 @@
 // 최소값을 찾을 때, 0 이 아닌 Infinity 로 하는 습관을 들여야한다.
 
 // O(nlog n + mlog m) / O(1)
-function smallestDifference(arrayOne, arrayTwo) {
+function smallestDifference(arrayOne: number[], arrayTwo: number[]) {
   arrayOne.sort((a, b) => a - b);
   arrayTwo.sort((a, b) => a - b);
 
-  let i = 0;
-  let j = 0;
+  let idxOne = 0;
+  let idxTwo = 0;
+  let smallest = Infinity;
+  let current = Infinity;
 
-  let minDist = Infinity;
-  let result = [];
-  while (i < arrayOne.length && j < arrayTwo.length) {
-    let itemOne = arrayOne[i];
-    let itemTwo = arrayTwo[j];
+  let smallestPair: number[] = [];
+  while (idxOne < arrayOne.length && idxTwo < arrayTwo.length) {
+    let firstNum = arrayOne[idxOne];
+    let secondNum = arrayTwo[idxTwo];
 
-    let dist = itemOne - itemTwo;
+    // 음과 양으로 포인터 조정하기
+    if (firstNum < secondNum) {
+      current = secondNum - firstNum;
 
-    if (dist === 0) return [itemOne, itemTwos];
+      idxOne++;
+    } else if (secondNum < firstNum) {
+      current = firstNum - secondNum;
 
-    if (dist < 0) i++;
-    else j++;
+      idxTwo;
+    } else return [firstNum, secondNum];
 
-    dist = Math.abs(dist);
+    // update
+    if (smallest > current) {
+      smallest = current;
 
-    if (minDist > dist) {
-      minDist = dist;
-      result = [itemOne, itemTwo];
+      smallestPair = [firstNum, secondNum];
     }
   }
 
-  return result;
+  return smallestPair;
 }

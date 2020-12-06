@@ -12,7 +12,7 @@
 */
 
 // O(n^2) / O(1)
-function twoNumberSum(array, targetSum) {
+function twoNumberSum(array: number[], targetSum: number) {
   for (let i = 0; i < array.length - 1; i++) {
     const firstNum = array[i];
 
@@ -28,8 +28,8 @@ function twoNumberSum(array, targetSum) {
 }
 
 // O(n) / O(n)
-function twoNumberSum(array, targetSum) {
-  const nums = {};
+function _twoNumberSum(array: number[], targetSum: number) {
+  const nums: { [key: number]: boolean } = {};
 
   for (const num of array) {
     // targetSum 에 대한 num 의 보수
@@ -44,7 +44,7 @@ function twoNumberSum(array, targetSum) {
 }
 
 // O(nlog n) / O(1)
-function twoNumberSum(array, targetSum) {
+function __twoNumberSum(array: number[], targetSum: number) {
   array.sort((a, b) => a - b);
 
   // 정렬된 배열의 양 끝단(최소값, 최대값)에 포인터를 두고,
@@ -54,7 +54,7 @@ function twoNumberSum(array, targetSum) {
   while (left < right) {
     const currentSum = array[left] + array[right];
 
-    if (currnetSum === targetSum) return [array[left], array[right]];
+    if (currentSum === targetSum) return [array[left], array[right]];
     else if (currentSum < targetSum) left++;
     else right--;
   }

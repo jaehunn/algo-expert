@@ -8,14 +8,16 @@
 
 // triplet 들의 오름차순과 각 triplet 안의 요소들이 오름차순을 유지해야한다. (다른 triplet 간 요소들은 순서를 신경 쓸 필요가 없다.)
 
-// 정렬시킨 배열의 끝단에 포인터를 배치하면 target 과 비교해 포인터를 조정할 수 있다.
+// 정렬시킨 배열의 양 끝단에 포인터를 배치하면 target 과 비교해 포인터를 조정할 수 있다.
 // 만약, 순차적으로 포인터를 배치하면 모든 요소를 평가해야한다.
 
+type Triplet = [number, number, number];
+
 // O(n^2) / O(n)
-function _threeNumberSum(array, targetSum) {
+function threeNumberSum(array: number[], targetSum: number) {
   array.sort((a, b) => a - b);
 
-  const triplets = [];
+  const triplets: Triplet[] = [];
   for (let i = 0; i < array.length - 2; i++) {
     let left = i + 1;
     let right = array.length - 1;
