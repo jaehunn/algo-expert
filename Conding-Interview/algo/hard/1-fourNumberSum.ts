@@ -9,19 +9,28 @@ interface Pairs {
   [key: number]: [number, number][]; // [[number, number], [number, number], ...]
 }
 
+// [7, 6, 4, -1, 1, 2]
+// { P: [a, b] }
+// find P -> P.concat([c, d])
+
+// duplicate
+// 13 + 3: [7, 6, 1, 2] / 9 + 7: [7, 2, 6, 1]
+
 // WIP ...
+
 // Average: O(n^2) / O(n^2)
 // Worst: O(n^3) / O(n^2)
 function fourNumberSum(array: number[], targetSum: number) {
   const allPairSums: Pairs = {};
   const quadruplets: number[][] = [];
 
+  // 외부 루프를 활용한다
   for (let i = 1; i < array.length - 1; i += 1) {
+    // 해싱 먼저
     for (let j = i + 1; j < array.length; j += 1) {
       const currentSum = array[i] + array[j];
       const difference = targetSum - currentSum;
 
-      // subsum 보수
       if (difference in allPairSums) {
         for (const pair of allPairSums[difference]) {
           quadruplets.push(pair.concat([array[i], array[j]]));
@@ -29,6 +38,7 @@ function fourNumberSum(array: number[], targetSum: number) {
       }
     }
 
+    // 요소가 겹치지않게
     for (let k = 0; k < i; k += 1) {
       const currentSum = array[i] + array[k];
 
