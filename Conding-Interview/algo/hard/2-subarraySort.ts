@@ -7,6 +7,7 @@
 
 type Range = [number, number];
 
+// O(n) / O(1)
 export function subarraySort(array: number[]): Range {
   let minOutOfOrder = Infinity;
   let maxOutOfOrder = -Infinity;

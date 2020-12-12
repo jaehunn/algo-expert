@@ -11,15 +11,45 @@
  * You can assume that there will only be one largest range.
  */
 
-function largestRange(array: number[]): [number, number] {
-  let newArray = [...array].sort((a, b) => a - b);
+// O(n) / O(n)
+function largestRange(array: number[]) {
+  let bestRange: [number, number] = [-1, -1];
+  let longestLength = 0;
 
-  for (let i = 1; i < newArray.length; i += 1) {}
+  const nums: { [key: number]: boolean } = {};
 
-  return res;
+  // init
+  for (const num of array) nums[num] = true;
+
+  for (const num of array) {
+    // skip
+    if (!nums[num]) continue;
+
+    nums[num] = false;
+    let currentLength = 1;
+
+    // expansion
+    let left = num - 1;
+    while (left in nums) {
+      nums[left] = false;
+      currentLength += 1;
+      left -= 1;
+    }
+
+    let right = num + 1;
+    while (right in nums) {
+      nums[right] = false;
+      currentLength += 1;
+      right -= 1;
+    }
+
+    // compare, update
+    if (currentLength > longestLength) {
+      longestLength = currentLength;
+
+      bestRange = [left + 1, right - 1];
+    }
+  }
+
+  return bestRange;
 }
-
-// [1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6]
-// [0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 15]
-
-// sort -> diff break -> max length
