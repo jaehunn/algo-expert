@@ -16,10 +16,12 @@
 
 // O(n^2) / O(n^2)
 function sameBsts(arrayOne: number[], arrayTwo: number[]) {
+  // base case
   if (arrayOne.length !== arrayTwo.length) return false;
   if (arrayOne.length === 0 && arrayTwo.length === 0) return true;
   if (arrayOne[0] !== arrayTwo[0]) return false;
 
+  // split
   const leftOne = getSmaller(arrayOne);
   const leftTwo = getSmaller(arrayTwo);
   const rightOne = getBiggerOrEqual(arrayOne);
@@ -48,7 +50,6 @@ function getBiggerOrEqual(array: number[]) {
   return biggerOrEqual;
 }
 
-// wip
 // O(n^2) / O(d)
 function _sameBsts(arrayOne: number[], arrayTwo: number[]) {
   return _areSameBsts(arrayOne, arrayTwo);
@@ -62,16 +63,70 @@ function _areSameBsts(
   minVal: number = -Infinity,
   maxVal: number = Infinity
 ) {
+  // empty
   if (rootIdxOne === -1 || rootIdxTwo === -1) return rootIdxOne === rootIdxTwo;
 
+  // compare
   if (arrayOne[rootIdxOne] !== arrayTwo[rootIdxTwo]) return false;
 
-  const leftRootIdxOne = _getIdxOfFirstSmaller();
-  const leftRootIdxTwo = _getIdxOfFirstSmaller();
-  const rightRootIdxOne = _getIdxOfFirstBiggerOrEqual();
-  const rightRootIdxTwo = _getIdxOfFirstBiggerOrEqual();
+  const leftRootIdxOne = _getIdxOfFirstSmaller(arrayOne, rootIdxOne, minVal);
+  const leftRootIdxTwo = _getIdxOfFirstSmaller(arrayTwo, rootIdxTwo, minVal);
+
+  const rightRootIdxOne = _getIdxOfFirstBiggerOrEqual(
+    arrayOne,
+    rootIdxTwo,
+    maxVal
+  );
+  const rightRootIdxTwo = _getIdxOfFirstBiggerOrEqual(
+    arrayOne,
+    rootIdxTwo,
+    maxVal
+  );
 
   const currentValue = arrayOne[rootIdxOne];
+  return (
+    _areSameBsts(
+      arrayOne,
+      arrayTwo,
+      leftRootIdxOne,
+      leftRootIdxTwo,
+      minVal,
+      currentValue
+    ) &&
+    _areSameBsts(
+      arrayOne,
+      arrayTwo,
+      rightRootIdxOne,
+      rightRootIdxTwo,
+      currentValue,
+      maxVal
+    )
+  );
+}
 
-  return _areSameBsts() && _areSameBsts();
+// left
+function _getIdxOfFirstSmaller(
+  array: number[],
+  startingIdx: number,
+  minVal: number
+) {
+  for (let i = startingIdx + 1; i < array.length; i += 1) {
+    if (array[i] < array[startingIdx] && array[i] >= minVal) return i;
+  }
+
+  // failure
+  return -1;
+}
+
+// right
+function _getIdxOfFirstBiggerOrEqual(
+  array: number[],
+  startingIdx: number,
+  maxVal: number
+) {
+  for (let i = startingIdx + 1; i < array.length; i += 1) {
+    if (array[i] >= array[startingIdx] && array[i] < maxVal) return i;
+  }
+
+  return -1;
 }
