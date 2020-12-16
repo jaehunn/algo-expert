@@ -20,16 +20,10 @@ class BinaryTree {
   }
 }
 
+// 직선경로거나 삼각형경로거나
+
+// wip
 // O(n) / O(log n)
 function maxPathSum(tree: BinaryTree) {
-  return tree.value + helper(tree.left, 0) + helper(tree.right, 0);
-}
-
-function helper(tree: BinaryTree | null, sum: number) {
-  if (!tree) return sum;
-
-  return Math.max(
-    helper(tree.left, sum + tree.value),
-    helper(tree.right, sum + tree.value)
-  );
+  // ...
 }
