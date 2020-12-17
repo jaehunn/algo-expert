@@ -35,5 +35,5 @@ function _maxSubsetSumNoAdjacent(array: number[]) {
     first = current; // i - 1 <- current
   }
 
-  return second;
+  return first;
 }
