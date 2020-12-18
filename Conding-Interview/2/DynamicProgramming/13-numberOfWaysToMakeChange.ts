@@ -7,20 +7,32 @@
 
 // ways[i] += ways[i - 1]
 
-// ways = 1({ ø })   0 0 0 0 0 0 0 0 0 0
-// n    = 0          1 2 3 4 5 6 7 8 9 10
-
-// wip
+// O(nd) / O(n)
 function numberOfWaysToMakeChange(n: number, denoms: number[]) {
-  let res = Array(n + 1).fill(0);
-  res[0] = 1;
+  let ways = Array(n + 1).fill(0);
+  ways[0] = 1; // { ø }
+
   for (let i = 0; i < denoms.length; i += 1) {
     const denom = denoms[i];
 
     for (let j = 1; j <= n; j += 1) {
-      if (j - denom >= 0) res[j] += res[j - denom];
+      if (j - denom >= 0) ways[j] += ways[j - denom]; // 나머지를 활용할 수 있는가
     }
   }
 
-  return res[n];
+  return ways[n];
 }
+
+// denoms = [1, 5], n = 6
+// ways   = 1 0 0 0 0 0 0
+// n      = 0 1 2 3 4 5 6
+
+// denom  = 1
+// ways   = 1 1 1 1 1 1 1
+// n      = 0 1 2 3 4 5 6
+
+// denom  = 5
+// ways   = 1 1 1 1 1 2 2
+// n      = 0 1 2 3 4 5 6
+
+// n = 6, ways = 2 (n[1] + n[5])
