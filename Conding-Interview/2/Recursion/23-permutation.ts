@@ -37,7 +37,17 @@ function permutationsHelper(
   }
 }
 
-// wip...
+// use pointer
+// [**1, 2, 3]
+//  [1, **2, 3] break
+//  [1, *3, *2] break
+// [*2, *1, 3]
+//  [2, **1, 3] break
+//  [2, *3, *1] break
+// [*3, 2, *1]
+//  [3, **2, 1] break
+//  [3, *1, *2] break
+
 // O(n * n!) / O(n * n!)
 function _getPermutations(array: number[]) {
   const permutations = [];
