@@ -1,7 +1,15 @@
+/**
+ * Write a function that takes in an array of unique integers and returns its powerset.
+ * The powerset P(X) of a set X is the set all subsets of X.
+ *
+ * For example, the powerset of [1, 2] is [[], [1], [2], [1, 2]].
+ *
+ * Note that the sets in the powerset do not need to be in any particular order.
+ */
+
 // wip
-// recursion
 // O(n * 2^n) / O(n * 2^2)
-function powerset(array, idx = array.length - 1) {
+function powerset(array: number[], idx = array.length - 1) {
   if (idx < 0) return [[]]; // { ø }
 
   const subSets = powerset(array, idx - 1);
@@ -17,21 +25,9 @@ function powerset(array, idx = array.length - 1) {
   return subSets;
 }
 
-// [[]]
-
-// 1
-// [[], [1]]
-
-// 2
-// [[], [1], [2], [1, 2]]
-
-// 3
-// [[], [1], [2], [3], [1, 3], [2, 3], [1, 2, 3]]
-
-// iteration
 // O(n* 2^n) / O(n * 2^n)
-function powerset(array) {
-  const subSets = [[]]; // { ø }
+function _powerset(array: number[]) {
+  const subSets: number[][] = [[]]; // { ø }
 
   for (const elem of array) {
     const length = subSets.length;
