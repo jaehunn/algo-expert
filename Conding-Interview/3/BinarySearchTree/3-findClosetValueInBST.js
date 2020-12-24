@@ -21,39 +21,36 @@ class BST {
 
 // Average: O(log n) / O(log n)
 // Worst: O(n) / O(n)
-function findClosestValueInBst(tree, target) {
-  return findClosestValueInBstHelper(tree, target, tree.value);
-}
+function findClosestValueInBst(tree, target, closest = tree.value) {
+  if (!tree) return closest;
+  if (tree.value === target) return tree.value; // Do not return 'closest'
 
-function findClosestValueInBstHelper(tree, target, closest) {
-  if (tree === null) return closest;
-  if (tree.value === target) return closest;
-
+  // update
   if (Math.abs(target - closest) > Math.abs(target - tree.value))
     closest = tree.value;
 
-  if (target < tree.value)
-    return findClosestValueInBstHelper(tree.left, target, closest);
-  else return findClosestValueInBstHelper(tree.right, target, closest);
+  // recur
+  return target < tree.value
+    ? findClosestValueInBst(tree.left, target, closest)
+    : findClosestValueInBst(tree.right, target, closest);
 }
 
 // Average: O(log n) / O(1)
 // Worst: O(n) / O(1)
-function findClosestValueInBst(tree, target) {
-  return findClosestValueInBstHelper(tree, target, tree.value);
-}
-
-function findClosestValueInBstHelper(tree, target, closest) {
+function findClosestValueInBst(tree, target, closest = tree.value) {
   let currentNode = tree;
 
-  while (currentNode !== null) {
+  while (currentNode) {
     if (currentNode.value === target) return currentNode.value;
 
+    // update
     if (Math.abs(target - closest) > Math.abs(target - currentNode.value))
       closest = currentNode.value;
 
-    if (currentNode.value > target) currentNode = currentNode.left;
-    else currentNode = currentNode.right;
+    // next
+    currentNode.value > target
+      ? (currentNode = currentNode.left)
+      : (currentNode = currentNode.right);
   }
 
   return closest;
