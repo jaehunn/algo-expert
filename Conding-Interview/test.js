@@ -6,68 +6,89 @@ class BST {
   }
 
   insert(value) {
-    if (this.value > value) {
-      // next
-      if (this.left) return this.left.insert(value);
+    let currentNode = this; // target
 
-      this.left = new BST(value);
-    } else {
-      if (this.right) return this.right.insert(value);
+    while (currentNode) {
+      if (value < currentNode.value) {
+        if (!currentNode.left) {
+          currentNode.left = new BST(value);
 
-      this.right = new BST(value);
+          return this;
+        }
+
+        // next
+        currentNode = currentNode.left;
+      } else {
+        if (!currentNode.right) {
+          currentNode.right = new BST(value);
+
+          return this;
+        }
+
+        // next
+        currentNode = currentNode.right;
+      }
     }
 
     return this;
   }
 
   contains(value) {
-    if (this.value === value) return true;
+    let currentNode = this;
 
-    if (this.value > value) {
+    while (currentNode) {
+      if (value === currentNode.value) return true;
+
       // next
-      if (this.left) return this.left.contains(value);
-
-      return false;
-    } else {
-      if (this.right) return this.right.contains(value);
-
-      return false;
+      if (value < currentNode.value) currentNode = currentNode.left;
+      else currentNode = currentNode.right;
     }
+
+    return false;
   }
 
-  // wip
-  remove(value, parent = null) {
-    if (this.value > value) {
-      if (this.left) this.left.remove(value, this);
-    } else if (this.value < value) {
-      if (this.right) this.right.remove(value, this);
-    } else {
-      // find (this.value === value)
-      if (this.left && this.right) {
-        // update
-        this.value = this.right.getLeftLeaf();
+  remove(value, parentNode = null) {
+    let currentNode = this;
 
-        // remove
-        this.right.remove(this.value, this);
-      } else if (!parent) {
-        // (this.left || this.right) && !parent(= root)
-        if (this.left) {
-          this.value = this.left.value;
-          this.right = this.left.right;
-          this.left = this.left.left;
-        } else if (this.right) {
-          this.value = this.right.value;
-          this.left = this.right.left;
-          this.right = this.right.right;
-        } else {
-          // NOOP
-        }
+    while (currentNode) {
+      if (value < currentNode.value) {
+        parentNode = currentNdde;
+
+        currentNode = currentNode.left;
+      } else if (value > currentNode.value) {
+        parentNode = currentNode;
+
+        currentNode = currentNode.right;
       } else {
-        // (this.left || this.right) && parent
-        if (parent.left === this) {
-          parent.left = this.left ? this.left : this.right;
-        } else if (parent.right === this) {
-          parent.right = this.left ? this.left : this.right;
+        // value === currentNode.value
+        if (currentNode.left && currentNode.right) {
+          currentNode.value = currentNode.right.getLeftLeaf();
+
+          currentNode.right.remove(currentNode.value, currentNode);
+        } else if (!parentNode) {
+          if (currentNode.left) {
+            currentNode.value = currentNode.left.value;
+
+            currentNode.right = currentNode.left.right;
+            currentNode.left = currentNode.left.left;
+          } else if (currentNode.right) {
+            currentNode.value = currentNode.right.value;
+
+            currentNode.left = currentNode.right.left;
+            currentNode.right = currentNode.right.right;
+          } else {
+            // NOOP
+          }
+        } else {
+          if (parentNode.left === currentNode) {
+            parentNode.left = currentNode.left
+              ? currentNode.left
+              : currentNode.right;
+          } else if (parentNode.right === currentNode) {
+            parentNode.rigt = currentNode.left
+              ? currentNode.left
+              : currentNode.right;
+          }
         }
       }
     }
@@ -76,8 +97,12 @@ class BST {
   }
 
   getLeftLeaf() {
-    if (!this.left) return this.value; // no-children
+    let currentNode = this;
 
-    return this.left.getLeftLeaf();
+    while (currentNode.left) {
+      currentNode = currentNode.left;
+    }
+
+    return currentNode.value;
   }
 }

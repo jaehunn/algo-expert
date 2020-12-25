@@ -166,8 +166,6 @@ class BST {
 
         currentNode = currentNode.right;
       } else {
-        // 1. both
-        // 2. one (root, no-root)
         if (currentNode.left && currentNode.right) {
           currentNode.value = currentNode.right.getMinValue();
 
