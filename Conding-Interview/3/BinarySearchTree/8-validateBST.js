@@ -22,18 +22,16 @@ class BST {
 
 // O(n) / O(d)
 function validateBst(tree) {
-  return helper(tree, -Infinity, Infinity);
+  return validateBstHelper(tree, -Infinity, Infinity);
+}
 
-  // tree.left < tree.value <= tree.right
-  function helper(tree, minValue, maxValue) {
-    if (!tree) return true;
+function validateBstHelper(tree, minValue, maxValue) {
+  if (!tree) return true; // success
+  if (tree.value < minValue || tree.value >= maxValue) return false; // error case
 
-    // guard
-    if (minValue > tree.value || tree.value >= maxValue) return false;
-
-    return (
-      helper(tree.left, minValue, tree.value) &&
-      helper(tree.right, tree.value, maxValue)
-    );
-  }
+  // next
+  return (
+    validateBstHelper(tree.left, minValue, tree.value) &&
+    validateBstHelper(tree.right, tree.value, maxValue)
+  );
 }
