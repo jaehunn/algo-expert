@@ -11,7 +11,11 @@
  */
 
 class BST {
-  constructor(value) {
+  value: number;
+  left: BST | null;
+  right: BST | null;
+
+  constructor(value: number) {
     this.value = value;
     this.left = null;
     this.right = null;
@@ -21,11 +25,15 @@ class BST {
 // 직속 부모노드만으로 타당성을 검증하면 안된다.
 
 // O(n) / O(d)
-function validateBst(tree) {
+function validateBst(tree: BST) {
   return validateBstHelper(tree, -Infinity, Infinity);
 }
 
-function validateBstHelper(tree, minValue, maxValue) {
+function validateBstHelper(
+  tree: BST | null,
+  minValue: number,
+  maxValue: number
+) {
   if (!tree) return true; // success
   if (tree.value < minValue || tree.value >= maxValue) return false; // error case
 

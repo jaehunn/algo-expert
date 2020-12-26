@@ -14,18 +14,21 @@
  *
  * A BST is valid if and only if all of its nodes are valid BST nodes.
  *
- * Note that the BST calss already has an intsert method which you can use if you want.
+ * Note that the BST class already has an intsert method which you can use if you want.
  */
 
-// WIP
 class BST {
-  constructor(value) {
+  value: number;
+  left: BST | null;
+  right: BST | null;
+
+  constructor(value: number) {
     this.value = value;
     this.left = null;
     this.right = null;
   }
 
-  insert(value) {
+  insert(value: number) {
     if (value < this.value) {
       if (this.left === null) {
         this.left = new BST(value);
@@ -43,21 +46,23 @@ class BST {
 }
 
 // O(n log n) / O(n)
-function minHeightBst(array) {
+function minHeightBst(array: number[]) {
   return constructMinHeightBst(array, null, 0, array.length - 1);
 }
 
-function constructMinHeightBst(array, bst, startIdx, endIdx) {
+function constructMinHeightBst(
+  array: number[],
+  bst: BST | null,
+  startIdx: number,
+  endIdx: number
+) {
   if (endIdx < startIdx) return;
 
   const midIdx = Math.floor((startIdx + endIdx) / 2);
-  const valueToAdd = array[minIdx];
+  const valueToAdd = array[midIdx];
 
-  if (bst === null) {
-    bst = new BST(valueToAdd);
-  } else {
-    bst.insert(valueToAdd);
-  }
+  if (!bst) bst = new BST(valueToAdd);
+  else bst.insert(valueToAdd);
 
   constructMinHeightBst(array, bst, startIdx, midIdx - 1);
   constructMinHeightBst(array, bst, midIdx + 1, endIdx);
@@ -66,48 +71,58 @@ function constructMinHeightBst(array, bst, startIdx, endIdx) {
 }
 
 // O(n) / O(n)
-function minHeightBst(array) {
-  return constructMinHeightBst(array, null, 0, array.length - 1);
+function _minHeightBst(array) {
+  return _constructMinHeightBst(array, null, 0, array.length - 1);
 }
 
-function constructMinHeightBst(array, bst, startIdx, endIdx) {
+function _constructMinHeightBst(
+  array: number,
+  bst: BST | null,
+  startIdx: number,
+  endIdx: number
+) {
   if (endIdx > startIdx) return;
 
   const midIdx = Math.floor((startIdx + endIdx) / 2);
   const newBstNode = new BST(array[midIdx]);
 
-  if (bst === null) bst = newBSTNode;
+  if (!bst) bst = newBstNode;
   else {
+    // insert()
     if (array[midIdx] < bst.value) {
       bst.left = newBstNode;
 
-      bst = bst.left;
+      bst = bst.left; // next
     } else {
       bst.right = newBstNode;
 
-      bst = bst.right;
+      bst = bst.right; // next
     }
   }
 
-  constructMinHeightBst(array, bst, startIdx, midIdx - 1);
-  constructMinHeightBst(array, bst, midIdx + 1, endIdx);
+  _constructMinHeightBst(array, bst, startIdx, midIdx - 1);
+  _constructMinHeightBst(array, bst, midIdx + 1, endIdx);
 
   return bst;
 }
 
 // O(n) / O(n)
-function minHeightBst(array) {
-  return constructMinHeightBst(array, 0, array.length - 1);
+function __minHeightBst(array: number[]) {
+  return __constructMinHeightBst(array, 0, array.length - 1);
 }
 
-function constructMinHeightBst(array, startIdx, endIdx) {
+function __constructMinHeightBst(
+  array: number[],
+  startIdx: number,
+  endIdx: number
+) {
   if (endIdx < startIdx) return null;
 
   const midIdx = Math.floor((startIdx + endIdx) / 2);
   const bst = new BST(array[midIdx]);
 
-  bst.left = constructMinHeightBst(array, startIdx, midIdx - 1);
-  bst.right = constructMinHeightBst(array, midIdx + 1, endIdx);
+  bst.left = __constructMinHeightBst(array, startIdx, midIdx - 1);
+  bst.right = __constructMinHeightBst(array, midIdx + 1, endIdx);
 
   return bst;
 }

@@ -11,10 +11,21 @@
  * its value is less than or equal to the values of every node to its right;
  * and its children nodes are either valid BST nodes themselves or None / null.
  */
+class BST {
+  value: number;
+  left: BST | null;
+  right: BST | null;
 
-// left -> print -> right
+  constructor(value: number) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+// left -> root -> right
 // O(n) / O(n)
-function inOrderTraverse(tree, array = []) {
+function inOrderTraverse(tree: BST | null, array: number[] = []) {
   if (!tree) return;
 
   inOrderTraverse(tree.left, array);
@@ -24,9 +35,9 @@ function inOrderTraverse(tree, array = []) {
   return array;
 }
 
-// print -> left -> right
+// root -> left -> right
 // O(n) / O(n)
-function preOrderTraverse(tree, array = []) {
+function preOrderTraverse(tree: BST | null, array: number[] = []) {
   if (!tree) return;
 
   array.push(tree.value);
@@ -36,9 +47,9 @@ function preOrderTraverse(tree, array = []) {
   return array;
 }
 
-// left -> right -> print
+// left -> right -> root
 // O(n) / O(n)
-function postOrderTraverse(tree, array = []) {
+function postOrderTraverse(tree: BST | null, array: number[] = []) {
   if (!tree) return;
 
   postOrderTraverse(tree.left, array);

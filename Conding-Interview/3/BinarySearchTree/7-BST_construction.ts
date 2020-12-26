@@ -15,7 +15,11 @@
  */
 
 class BST {
-  constructor(value) {
+  value: number;
+  left: BST | null;
+  right: BST | null;
+
+  constructor(value: number) {
     this.value = value;
     this.left = null;
     this.right = null;
@@ -23,7 +27,7 @@ class BST {
 
   // Average: O(log n) / O(log n)
   // Worst: O(n) / O(n)
-  insert(value) {
+  insert(value: number): BST {
     if (value < this.value) {
       if (this.left) return this.left.insert(value);
 
@@ -39,7 +43,7 @@ class BST {
 
   // Average: O(log n) / O(log n)
   // Worst: O(n) / O(n)
-  contains(value) {
+  contains(value: number): boolean {
     if (value === this.value) return true;
 
     if (value < this.value) {
@@ -55,7 +59,7 @@ class BST {
 
   // Average: O(log n) / O(log n)
   // Worst: O(n) / O(n)
-  remove(value, parent = null) {
+  remove(value: number, parent: BST | null = null) {
     // find
     if (value < this.value) {
       if (this.left) this.left.remove(value, this);
@@ -93,7 +97,7 @@ class BST {
     return this;
   }
 
-  getLeftLeaf() {
+  getLeftLeaf(): number {
     if (!this.left) return this.value;
 
     return this.left.getLeftLeaf();
@@ -101,7 +105,11 @@ class BST {
 }
 
 class BST {
-  constructor(value) {
+  value: number;
+  left: BST | null;
+  right: BST | null;
+
+  constructor(value: number) {
     this.value = value;
     this.left = null;
     this.right = null;
@@ -109,8 +117,8 @@ class BST {
 
   // Average: O(log n) / O(1)
   // Worst: O(n) / O(1)
-  insert(value) {
-    let currentNode = this;
+  insert(value: number): BST {
+    let currentNode: BST = this;
 
     while (currentNode) {
       if (value < currentNode.value) {
@@ -137,8 +145,8 @@ class BST {
 
   // Average: O(log n) / O(1)
   // Worst: O(n) / O(1)
-  contains(value) {
-    let currentNode = this;
+  contains(value: number) {
+    let currentNode: BST | null = this;
 
     while (currentNode) {
       if (value === currentNode.value) return true;
@@ -153,15 +161,15 @@ class BST {
 
   // Average: O(log n) / O(1)
   // Worst: O(n) / O(1)
-  remove(value, parentNode = null) {
-    let currentNode = this;
+  remove(value: number, parentNode: BST | null = null) {
+    let currentNode: BST | null = this;
 
     while (currentNode) {
       if (value < currentNode.value) {
         parentNode = currentNode;
 
         currentNode = currentNode.left;
-      } else if (value > currnetNode.value) {
+      } else if (value > currentNode.value) {
         parentNode = currentNode;
 
         currentNode = currentNode.right;
@@ -200,8 +208,8 @@ class BST {
     return this;
   }
 
-  getMinValue() {
-    let currentNode = this;
+  getMinValue(): number {
+    let currentNode: BST = this;
 
     while (currentNode.left) {
       currentNode = currentNode.left;

@@ -12,7 +12,11 @@
  */
 
 class BST {
-  constructor(value) {
+  value: number;
+  left: BST | null;
+  right: BST | null;
+
+  constructor(value: number) {
     this.value = value;
     this.left = null;
     this.right = null;
@@ -21,7 +25,11 @@ class BST {
 
 // Average: O(log n) / O(log n)
 // Worst: O(n) / O(n)
-function findClosestValueInBst(tree, target, closest = tree.value) {
+function findClosestValueInBst(
+  tree: BST,
+  target: number,
+  closest: number = tree.value
+) {
   if (!tree) return closest;
   if (tree.value === target) return tree.value; // Do not return 'closest'
 
@@ -37,7 +45,11 @@ function findClosestValueInBst(tree, target, closest = tree.value) {
 
 // Average: O(log n) / O(1)
 // Worst: O(n) / O(1)
-function findClosestValueInBst(tree, target, closest = tree.value) {
+function _findClosestValueInBst(
+  tree: BST,
+  target: number,
+  closest: number = tree.value
+) {
   let currentNode = tree;
 
   while (currentNode) {
