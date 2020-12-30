@@ -16,7 +16,10 @@ function findThreeLargestNumbers(array: number[]) {
   return threeLargest;
 }
 
-// wip
+// [x x x]
+// [x x 3]
+// [x 3 5]
+// [3 4 5]
 function updateLargest(threeLargest: Array<number | null>, num: number) {
   if (threeLargest[2] === null || num > threeLargest[2]) {
     shiftAndUpdate(threeLargest, num, 2);
