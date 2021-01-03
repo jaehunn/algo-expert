@@ -47,7 +47,11 @@ class MinHeap {
           heap[currentIndex],
           heap[childIndex],
         ];
-      } else return; // neither
+
+        // move
+        currentIndex = childIndex;
+        leftChildIndex = currentIndex * 2 + 1;
+      } else return;
     }
   }
 
