@@ -20,26 +20,28 @@ function smallestDifference(arrayOne: number[], arrayTwo: number[]) {
   arrayOne.sort((a, b) => a - b);
   arrayTwo.sort((a, b) => a - b);
 
-  let idxOne = 0;
-  let idxTwo = 0;
+  let i = 0;
+  let j = 0;
   let smallest = Infinity;
   let current = Infinity;
 
   let smallestPair: number[] = [];
-  while (idxOne < arrayOne.length && idxTwo < arrayTwo.length) {
-    let firstNum = arrayOne[idxOne];
-    let secondNum = arrayTwo[idxTwo];
+  while (i < arrayOne.length && j < arrayTwo.length) {
+    let firstNum = arrayOne[i];
+    let secondNum = arrayTwo[j];
 
-    // 음과 양으로 포인터 조정하기
+    // compare
+    if (firstNum === secondNum) return [firstNum, secondNum];
+
     if (firstNum < secondNum) {
       current = secondNum - firstNum;
 
-      idxOne++;
-    } else if (secondNum < firstNum) {
+      i += 1;
+    } else {
       current = firstNum - secondNum;
 
-      idxTwo;
-    } else return [firstNum, secondNum];
+      j += 1;
+    }
 
     // update
     if (smallest > current) {

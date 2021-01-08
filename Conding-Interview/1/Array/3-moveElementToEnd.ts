@@ -15,7 +15,7 @@ function moveElementToEnd(array: number[], toMove: number) {
 
   while (i < j) {
     // 뒤에서부터 toMove 가 아닌 원소의 자리를 찾는다
-    while (i < j && array[j] === toMove) j--;
+    while (i < j && array[j] === toMove) j -= 1;
 
     if (array[i] === toMove) [array[i], array[j]] = [array[j], array[i]];
 

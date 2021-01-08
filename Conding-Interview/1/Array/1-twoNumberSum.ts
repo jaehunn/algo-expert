@@ -13,13 +13,12 @@
 
 // O(n^2) / O(1)
 function twoNumberSum(array: number[], targetSum: number) {
-  for (let i = 0; i < array.length - 1; i++) {
+  for (let i = 0; i < array.length - 1; i += 1) {
     const firstNum = array[i];
 
-    for (let j = i + 1; j < array.length; j++) {
+    for (let j = i + 1; j < array.length; j += 1) {
       const secondNum = array[j];
 
-      // 모든 쌍을 찾아서 targetSum 과 비교
       if (firstNum + secondNum === targetSum) return [firstNum, secondNum];
     }
   }
@@ -32,12 +31,11 @@ function _twoNumberSum(array: number[], targetSum: number) {
   const nums: { [key: number]: boolean } = {};
 
   for (const num of array) {
-    // targetSum 에 대한 num 의 보수
     const potentialMatch = targetSum - num;
 
-    // 보수를 해싱에 성공하면 num 과 함께 반환, 그렇지 않으면 캐싱하기
-    if (potentialMatch in nums) return [potentialMatch, num];
-    else nums[num] = true;
+    if (nums[potentialMatch]) return [potentialMatch, num];
+
+    nums[num] = true;
   }
 
   return [];
@@ -47,16 +45,15 @@ function _twoNumberSum(array: number[], targetSum: number) {
 function __twoNumberSum(array: number[], targetSum: number) {
   array.sort((a, b) => a - b);
 
-  // 정렬된 배열의 양 끝단(최소값, 최대값)에 포인터를 두고,
-  // 두 포인터 값의 합을 targetSum 과 비교해 작다면 최소값 포인터를 우측으로 옮겨 값을 올린다. 크다면 최대값 포인터를 좌측으로 옮겨 값을 내린다.
   let left = 0;
   let right = array.length - 1;
   while (left < right) {
     const currentSum = array[left] + array[right];
 
     if (currentSum === targetSum) return [array[left], array[right]];
-    else if (currentSum < targetSum) left++;
-    else right--;
+
+    if (currentSum < targetSum) left += 1;
+    else right -= 1;
   }
 
   return [];
