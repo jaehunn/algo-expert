@@ -43,19 +43,20 @@ function breakDirection(
   return difference > 0;
 }
 
-// 결과론적으로 단조증가 이거나 단조감소면 된다.
-// 요소쌍을 순회하면서 단조증가와 단조감소의 플래그를 조정한다.
-// 플래그는 복구될 수 없다.
+// 결과론적으로 단조증가 이거나 단조감소면 된다. = A OR B
+// NOT A: 증가하지 않는다. == B: 단조감소
+// NOT B: 감소하지 않는다. == A: 단조증가
+// A 와 B 는 상호의존적이다. (하나가 결정되면 다른 하나는 반드시 결정된다.)
 
 // O(n) / O(1)
 function _isMonotonic(array: number[]) {
-  let isNonDecreasing = true;
-  let isNonIncreasing = true;
+  let isNonDecreasing = true; // 단조 증가
+  let isNonIncreasing = true; // 단조 감소
 
   for (let i = 1; i < array.length; i += 1) {
     if (array[i] < array[i - 1]) isNonDecreasing = false;
     if (array[i] > array[i - 1]) isNonIncreasing = false;
   }
 
-  return isNonIncreasing || isNonIncreasing;
+  return isNonDecreasing || isNonIncreasing;
 }

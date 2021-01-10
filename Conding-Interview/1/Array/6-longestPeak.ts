@@ -8,7 +8,7 @@
  * Similarly, the integers 1, 2, 3 don't form a peak because there aren't any strictly decreasing integers after the 3.
  */
 
-// peak 한 세 요소를 찾으면 좌우로 인덱스를 확장시킨다.
+// peak 조건을 충족하는 세 요소를 찾으면 좌우로 인덱스를 확장시킨다.
 
 // O(n) / O(1)
 function longestPeak(array: number[]) {
@@ -23,6 +23,7 @@ function longestPeak(array: number[]) {
     // continue 로 후퇴시키기
     if (!isPeak) {
       i += 1;
+
       continue;
     }
 
