@@ -1,4 +1,3 @@
-// wip
 /**
  * Write a DoublyLinkedList class that has a head and a tail, both of which point to either a linked list Node or None / null.
  * The class should support:
@@ -76,20 +75,38 @@ export class DoublyLinkedList {
     // remove
     this.remove(nodeToInsert);
 
+    // node: 6
+    // nodeToInsert: 3
+    // 4 1 2 3 5 6
+    // -> 4 1 2 5 3 6
+
+    // link
+    // node.prev <- nodeToInsert -> node
+    // node.prev -> nodeToInsert <- node
+
     // add
     nodeToInsert.prev = node.prev;
     nodeToInsert.next = node;
     if (node.prev) node.prev.next = nodeToInsert;
-    else this.head = nodeToInsert;
-
+    else this.head = nodeToInsert; // node is head
     node.prev = nodeToInsert;
   }
 
   // O(1) / O(1)
   insertAfter(node: Node, nodeToInsert: Node) {
-    // Write your code here.
+    // !single
+    if (nodeToInsert == this.head && nodeToInsert === this.tail) return;
+
+    this.remove(nodeToInsert);
+
+    nodeToInsert.prev = node;
+    nodeToInsert.next = node.next;
+    if (node.next) node.next.prev = nodeToInsert;
+    else this.tail = nodeToInsert;
+    node.next = nodeToInsert;
   }
 
+  // O(p) / O(1)
   insertAtPosition(position: number, nodeToInsert: Node) {
     if (position === 1) {
       this.setHead(nodeToInsert);
@@ -115,9 +132,13 @@ export class DoublyLinkedList {
   removeNodesWithValue(value: number) {
     let node = this.head;
 
-    while (node && node.value !== value) node = node.next;
+    while (node) {
+      const nodeToRemove = node;
 
-    node && this.remove(node);
+      node = node.next;
+
+      if (nodeToRemove.value === value) this.remove(nodeToRemove);
+    }
   }
 
   // O(1) / O(1)
@@ -127,6 +148,7 @@ export class DoublyLinkedList {
 
     this.removeNodeBindings(node);
   }
+
   // O(n) / O(1)
   containsNodeWithValue(value: number) {
     let node = this.head;
@@ -136,6 +158,7 @@ export class DoublyLinkedList {
 
     return !!node;
   }
+
   removeNodeBindings(node: Node) {
     if (node.prev) node.prev.next = node.next;
     if (node.next) node.next.prev = node.prev;
