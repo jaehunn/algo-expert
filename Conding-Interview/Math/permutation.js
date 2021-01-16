@@ -1,5 +1,4 @@
-// wip
-// repetition
+// with repetition
 function r_permutation(items, len = items.length) {
   if (len === 1) return items.map((v) => [v]);
 
@@ -40,8 +39,23 @@ function permutation(items) {
   return res;
 }
 
-// [ [3] ]
-// [2, 3] [3, 2]
+function solve(items) {
+  const res = [];
 
-// [1, 2, 3] [2, 1, 3] [2, 3, 1]
-// [1, 3, 2] [3, 1, 2] [3, 2, 1]
+  hlpr(items, [], res);
+
+  return res;
+}
+
+function hlpr(items, cur, res) {
+  if (!items.length && cur.length) {
+    res.push(cur);
+  } else {
+    for (let i = 0; i < items.length; i += 1) {
+      const newItems = items.slice(0, i).concat(items.slice(i + 1));
+      const newPermu = cur.concat([items[i]]);
+
+      hlpr(newItems, newPermu, res);
+    }
+  }
+}
