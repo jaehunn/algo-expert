@@ -1,4 +1,3 @@
-// wip
 // with repitition
 function r_combination(items, len) {
   if (len === 1) return items.map((item) => [item]);
