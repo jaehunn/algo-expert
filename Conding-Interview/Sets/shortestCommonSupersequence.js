@@ -9,7 +9,7 @@ function shortestCommonSupersequence(a, b) {
   let bI = 0;
   let lcsI = 0;
 
-  // flag (False: same with the lcs)
+  // marking flag (False: same with the lcs)
   let aF = true;
   let bF = true;
 
@@ -36,6 +36,7 @@ function shortestCommonSupersequence(a, b) {
       lcsI += 1;
       aI += 1;
       bI += 1;
+
       aF = true;
       bF = true;
     }
