@@ -1,32 +1,16 @@
-// combination
-function r_combination(items, l = items.length) {
-  if (l === 1) return items.map((item) => [item]);
+// power-set
+function powerSet(item, l = items.length) {
+  let res = [];
 
-  let r = [];
+  let _l = 2 ** items.length;
 
-  items.forEach((item, i) => {
-    let smallers = r_combination(items.slice(i), l - 1);
+  for (let i = 0; i < _l; i += 1) {
+    let cur = [];
 
-    smallers.forEach((smaller) => {
-      r.push([item].concat(smaller));
-    });
-  });
+    for (let j = 0; j < l; j += 1) {
+      if (i & (1 << j)) cur.push(items[j]);
+    }
+  }
 
-  return r;
-}
-
-function combination(items, l = items.length) {
-  if (l === 1) return items.map((item) => [item]);
-
-  let r = [];
-
-  items.forEach((item, i) => {
-    let smallers = combination(items.slice(i + 1), l - 1);
-
-    smallers.forEach((smaller) => {
-      r.push([item].concat(smaller));
-    });
-  });
-
-  return r;
+  return res;
 }
