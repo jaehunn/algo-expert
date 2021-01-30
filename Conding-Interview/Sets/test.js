@@ -1,16 +1,22 @@
-// power-set
-function powerSet(item, l = items.length) {
-  let res = [];
+// longest increasing subsequence
+// ls[i] = 0 부터 i 까지의 증가 부분배열
+function lis(items, l = items.length) {
+  let ls = Array(l).fill(1);
 
-  let _l = 2 ** items.length;
+  let i = 0;
+  let j = 1;
+  while (j < l) {
+    if (items[i] < items[j]) {
+      if (ls[i] + 1 > ls[j]) ls[j] = ls[i] + 1;
+    }
 
-  for (let i = 0; i < _l; i += 1) {
-    let cur = [];
+    i += 1;
 
-    for (let j = 0; j < l; j += 1) {
-      if (i & (1 << j)) cur.push(items[j]);
+    if (i === j) {
+      j += 1;
+      i = 0;
     }
   }
 
-  return res;
+  return Math.max(...ls);
 }
