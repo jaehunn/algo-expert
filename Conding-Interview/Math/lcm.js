@@ -3,5 +3,5 @@ function gcd(a, b) {
 }
 
 function lcm(a, b) {
-  return a === 0 || b === 0 ? 0 : (a * b) / gcd(a, b);
+  return (a * b) / gcd(a, b);
 }

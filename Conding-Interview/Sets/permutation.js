@@ -16,46 +16,27 @@ function r_permutation(items, len = items.length) {
 }
 
 // without repetition
-function permutation(items) {
-  if (items.length === 1) return [items];
+function permutation(items, length = items.length) {
+  if (length === 1) return items.map((item) => [item]);
 
-  let res = [];
+  let result = [];
 
-  const smallers = permutation(items.slice(1));
+  const smallers = permutation(items.slice(1), length - 1);
 
-  const first = items[0];
+  const firstItem = items[0];
 
   for (let i = 0; i < smallers.length; i += 1) {
     const smaller = smallers[i];
 
     for (let j = 0; j <= smaller.length; j += 1) {
-      const pre = smaller.slice(0, j);
-      const suf = smaller.slice(j);
+      const prefix = smaller.slice(0, j);
+      const suffix = smaller.slice(j);
 
-      res.push(pre.concat([first], suf));
+      result.push(prefix.concat([firstItem], suffix));
     }
   }
 
-  return res;
+  return result;
 }
 
-function solve(items) {
-  const res = [];
-
-  hlpr(items, [], res);
-
-  return res;
-}
-
-function hlpr(items, cur, res) {
-  if (!items.length && cur.length) {
-    res.push(cur);
-  } else {
-    for (let i = 0; i < items.length; i += 1) {
-      const newItems = items.slice(0, i).concat(items.slice(i + 1));
-      const newPermu = cur.concat([items[i]]);
-
-      hlpr(newItems, newPermu, res);
-    }
-  }
-}
+console.log(permutation([1, 2, 3], 1));

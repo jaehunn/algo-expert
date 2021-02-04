@@ -1,8 +1,8 @@
 // @see https://github.com/trekhleb/javascript-algorithms/blob/master/src/algorithms/math/euclidean-algorithm/euclideanAlgorithm.js
 function euclidean(a, b) {
-  // a > b
-  // 작은 수가 0이 되면 최대 공약수로
-  return b ? euclidean(b, a % b) : a;
+  if (!b) return a;
+
+  return euclidean(b, a % b);
 }
 
 function _euclidean(a, b) {

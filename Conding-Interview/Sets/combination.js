@@ -16,18 +16,18 @@ function r_combination(items, l = items.length) {
 }
 
 // without repetition
-function combination(items, l = items.length) {
-  if (l === 1) return items.map((item) => [item]);
+function combination(items, length = items.length) {
+  if (length === 1) return items.map((item) => [item]);
 
-  const res = [];
+  const result = [];
 
   items.forEach((item, index) => {
-    const smallers = combination(items.slice(index + 1), l - 1);
+    const smallers = combination(items.slice(index + 1), length - 1);
 
     smallers.forEach((smaller) => {
-      res.push([item].concat(smaller));
+      result.push([item].concat(smaller));
     });
   });
 
-  return res;
+  return result;
 }

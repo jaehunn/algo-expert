@@ -20,41 +20,41 @@ function primeFactor(n) {
 
 // Trial Division
 // integer, 1, even number
-function trialDivision(n) {
-  if (n % 1) return false; // integer
-  if (n <= 1) return false; // 1
-  if (n <= 3) return true; // 2 3
-  if (!(n % 2)) return false; // even
+function trialDivision(number) {
+  if (number % 1) return false; // integer
+  if (number <= 1) return false; // 1
+  if (number <= 3) return true; // 2 3
+  if (!(number % 2)) return false; // even
 
-  for (let d = 3; d <= Math.sqrt(n); d += 2) {
-    if (!(n % d)) return false;
+  for (let division = 3; division <= Math.sqrt(number); division += 2) {
+    if (!(number % division)) return false;
   }
 
   return true;
 }
 
 // Sieve of Eratosthenes
-function sieveOfEratosthenes(n) {
-  const isP = new Array(n + 1).fill(true);
+function sieveOfEratosthenes(number) {
+  const isPrime = new Array(n + 1).fill(true);
 
-  isP[0] = false;
-  isP[1] = false;
+  isPrime[0] = false;
+  isPrime[1] = false;
 
-  const p = [];
+  const primes = [];
 
   for (let i = 2; i <= n; i += 1) {
-    if (isP[i]) {
-      p.push(i);
+    if (isPrime[i]) {
+      primes.push(i);
 
       let j = i * i;
 
       while (j <= n) {
-        isP[j] = false;
+        isPrime[j] = false;
 
         j += i;
       }
     }
   }
 
-  return p;
+  return primes;
 }
