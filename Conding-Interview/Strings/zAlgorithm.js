@@ -41,7 +41,7 @@ function buildZ(zS) {
     } else {
       zShift = i - zLi;
 
-      if (Z[zShift] < zRi - i + 1) {
+      if (Z[zShift] <= zRi - i) {
         Z[i] = Z[zShift];
       } else {
         zLi = i;
