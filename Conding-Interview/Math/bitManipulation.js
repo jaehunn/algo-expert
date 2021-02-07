@@ -1,54 +1,27 @@
 // @see https://github.com/trekhleb/javascript-algorithms/tree/master/src/algorithms/math/bits
 
-function switchSign(number) {
-  return ~number + 1;
-}
+function fullAdder(a, b) {
+  let result = 0;
+  let carry = 0;
 
-function mulitply(a, b) {
-  if (b === 0 || a === 0) return 0;
+  for (let i = 0; i < 32; i += 1) {
+    let aI = getBit(a, i);
+    let bI = getBit(b, i);
 
-  let oddPositive = () => mulitply(multiplyByTwo(a), divideByTwo(b - 1)) + a;
-  let oddNegative = () => mulitply(multiplyByTwo(a), divideByTwo(b + 1)) - a;
+    let carryIn = carry;
 
-  let even = () => mulitply(mulitplyByTwo(a), divideByTwo(b));
-  let odd = () => (isPositive(b) ? oddPositive() : oddNegative());
+    let bitSum = aI ^ bI;
 
-  return isEven(b) ? even() : odd();
-}
+    let sum = bitSum ^ carryIn;
 
-// 4 * 3
-// multiply(8, 1) + 4
-// multiply(16, 0) + 8
+    let carryOut = (bitSum & carrayIn) | (aI & bI);
 
-// 4 * (-3)
-// multiply(8, -1) - 4
-// multiply(16, 0) - 8
+    carry = carryOut;
 
-function multiplyByTwo(number) {
-  return number << 1;
-}
-
-function divideByTwo(number) {
-  return number >> 1;
-}
-
-// 12 * 7(1 + 2 + 4) = 84
-// 12 * 1 + 12 * 2 + 12 * 4
-
-function multiplyUnsigned(number, multiplier) {
-  let res = 0;
-
-  let bitIndex = 0;
-  while (multiplier) {
-    if (multiplier & 1) {
-      res += number << bitIndex;
-    }
-
-    bitIndex += 1;
-    multiplier >>= 1;
+    result |= sum << i;
   }
 
-  return res;
+  return result;
 }
 
 console.log(multiplyUnsigned(12, 7));
