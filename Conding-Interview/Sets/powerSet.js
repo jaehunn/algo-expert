@@ -1,43 +1,36 @@
 // brute-force
-function bfPowerSet(items, res = [[]], cur = [], startI = 0) {
-  for (let i = startI; i <= items.length; i += 1) {
-    cur.push(items[i]);
+function powerSet(items, set = [[]], subSet = [], startIndex = 0) {
+  for (let index = startIndex; index <= items.length; index += 1) {
+    subSet.push(items[index]);
 
-    res.push([...cur]);
+    set.push(subSet);
 
-    bfPowerSet(items, res, cur, i + 1);
+    powerSet(items, set, subSet, index + 1);
 
-    cur.pop();
+    subSet.pop();
   }
 
-  return res; // { ø, {1}, {1, 2}, {1, 2, 3}, {1, 3}, {2}, {2, 3}, {3}}
+  return set;
 }
 
-// wip
 // bitwise
-function bwPowerSet(items, l = items.length) {
-  let res = [];
+function powerSet(items) {
+  let set = [];
 
-  const _l = 2 ** items.length;
+  const length = 2 ** items.length;
+  for (let i = 0; i < length; i += 1) {
+    let subSet = [];
 
-  // 000 ø
-  // 001 a
-  // 010 b
-  // 011 ab
-  // 100 c
-  // 101 ca
-  // 110 cb
-  // 111 abc
+    for (let j = 0; j < items.length; j += 1) {
+      if (i & (1 << j)) subSet.push(items[j]);
 
-  for (let i = 0; i < _l; i += 1) {
-    let cur = [];
-
-    for (let j = 0; j < l; j += 1) {
-      if (i & (1 << j)) cur.push(items[j]);
+      console.log(j);
     }
 
-    res.push(cur);
+    set.push(subSet);
   }
 
-  return res;
+  return set;
 }
+
+console.log(_powerSet([1, 2, 3, 4]));
