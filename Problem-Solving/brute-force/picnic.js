@@ -25,13 +25,13 @@ console.log(picnic(4, areFriends));
 
 //     if (isFinished) return 1;
 
-//     let result = 0; // TODO) 왜 외부 렉시컬에서 관리하면 안될까?
+//     let result = 0; // 외부 렉시컬로 관리하면 안된다. 외부에서 렉시컬로 관리하면 누적된 result 를 더해나간다.
 //     for (let i = 0; i < students; i += 1) {
 //       for (let j = 0; j < students; j += 1) {
 //         if (!isPaired[i] && !isPaired[j] && areFriends[i][j]) {
 //           isPaired[i] = isPaired[j] = true;
 
-//           result += countPairings();
+//           result += countPairings(); // 답의 후보들의 개수를 거슬러 올라가며 더해간다.
 
 //           isPaired[i] = isPaired[j] = false;
 //         }
@@ -53,14 +53,11 @@ function picnic(students, areFriends) {
   function countPairings() {
     let first = isPaired.indexOf(false);
 
-    if (!~first) return 1; // -1 이면, 모두 짝을 이뤄 false 가 없다는 의미이므로 답의 후보가 완성된 것이다.
+    if (!~first) return 1;
 
     let result = 0;
 
     for (let i = first + 1; i < students; i += 1) {
-      // TODO) 외부 렉시컬로 first 를 관리하면 -1 를 잡아 areFriends[-1][i] 로 잡는다.
-
-      // 짝을 이룰 수 있는 가장 빠른 학생을 찾는다.
       if (!isPaired[i] && areFriends[first][i]) {
         isPaired[first] = isPaired[i] = true;
 
