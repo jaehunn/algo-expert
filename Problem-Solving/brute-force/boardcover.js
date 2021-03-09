@@ -3,11 +3,13 @@
 
 // 격자의 흰 블록의 개수는 블록 3개로 이루어진 L 모양의 블록의 배수만큼 존재해야 덮을 수 있다. 이는 입력에서 제한한다고 가정한다.
 
-boardCover([
-  [0, 1, 1, 1, 1, 1, 0],
-  [0, 1, 1, 1, 1, 1, 0],
-  [0, 0, 1, 1, 0, 0, 0],
-]);
+console.log(
+  boardCover([
+    [1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1],
+    [1, 1, 0, 0, 1, 1, 1],
+  ])
+);
 
 // 경우의 수를 구하는 문제로 게임판을 덮는 모든 경우를 완전탐색으로 해결할 수 있다.
 // 총 흰 블록의 수를 L 모양의 블록의 수(3) 로 나누면 L 모양의 블록을 내려놓을 수 있는 횟수를 구할 수 있다.
@@ -25,8 +27,8 @@ boardCover([
 // L 모양의 블록은 회전되어 나타나는 형태를 상대좌표로 관리한다.
 
 function boardCover(board) {
-  // |00 01|
-  // |10 11|
+  // |0-1 00 01|
+  // |1-1 10 11|
 
   const coverType = [
     [
@@ -59,7 +61,7 @@ function boardCover(board) {
 
     for (let i = 0; i < board.length; i += 1) {
       for (let j = 0; j < board[0].length; j += 1) {
-        if (board[i][j] === 1) {
+        if (board[i][j] === 0) {
           x = i;
           y = j;
 
@@ -70,21 +72,30 @@ function boardCover(board) {
       if (x !== -1 && y !== -1) break;
     }
 
-    if (x === -1 && y === -1) return 1; // clear
+    if (x === -1 && y === -1) return 1; // completed
 
     let result = 0;
     for (let type = 0; type < 4; type += 1) {
-      if (setBlock()) result += cover();
+      if (setBlock(x, y, type)) result += cover();
 
-      setBlock();
+      setBlock(x, y, type, -1);
     }
 
     return result;
   }
 
-  function setBlock(x, y, type, setCover) {
+  function setBlock(x, y, type, setCover = 1) {
     let flag = true;
 
-    // ...
+    for (let i = 0; i < 3; i += 1) {
+      let _x = x + coverType[type][i][0];
+      let _y = y + coverType[type][i][1];
+
+      // failed
+      if (_x < 0 || _x >= board.length || _y < 0 || _y >= board[0].length) flag = false;
+      else if ((board[_x][_y] += setCover) > 1) flag = false; // success
+    }
+
+    return flag;
   }
 }
