@@ -23,8 +23,6 @@ function powerSet(items) {
 
     for (let j = 0; j < items.length; j += 1) {
       if (i & (1 << j)) subSet.push(items[j]);
-
-      console.log(j);
     }
 
     set.push(subSet);

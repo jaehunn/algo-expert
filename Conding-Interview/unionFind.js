@@ -6,9 +6,9 @@ function unionFind(x, y, root) {
 }
 
 function find(x, root) {
-  if ((root[x] = x)) return x;
+  if (root[x] === x) return x;
 
-  return (root[x] = find(root[x]));
+  return (root[x] = find(root[x], root));
 }
 
 // union-by-height
