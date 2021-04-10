@@ -8,7 +8,7 @@
 //  [1, 3] => [2]
 //    ...
 
-// items를 앞에서부터 순차적으로 잘라내어 붙힌다.
+// list 이용하기
 
 // function permutation(items) {
 //   const resItems = [];
@@ -33,8 +33,7 @@
 //   }
 // }
 
-// [1, 2, 3]
-// ...
+// pointer 이용하기
 
 function permutation(items) {
   const resItems = [];
@@ -54,8 +53,26 @@ function getPermutation(startI, items, resItems) {
   for (let i = startI; i < items.length; i += 1) {
     [items[i], items[startI]] = [items[startI], items[i]];
 
+    console.log(`i: ${i}, startI: ${startI} -> ${items}`);
+
     getPermutation(startI + 1, items, resItems);
 
     [items[i], items[startI]] = [items[startI], items[i]]; // recover
   }
 }
+
+console.log(permutation([1, 2, 3]));
+
+// startI 가 i 에 위치한다.
+
+// [1, 2, 3] 00
+//  -> [1, 2, 3] 11
+//  -> [1, 3, 2] 12
+
+// [2, 1, 3] 01
+//  -> [2, 1, 3] 11
+//  -> {2, 3, 1} 12
+
+// [3, 2, 1] 02
+//  -> [3, 2, 1] 11
+//  -> [3, 1, 2] 12
