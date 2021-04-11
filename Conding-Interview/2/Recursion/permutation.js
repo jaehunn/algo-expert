@@ -1,78 +1,45 @@
-// [1, 2, 3]
-//  [2, 3] => [1]
-//   [3] => [1, 2]
-//    x => [1, 2, 3]
-//   [2] => [1, 3]
-//    x => [1, 3, 2]
-
-//  [1, 3] => [2]
-//    ...
-
-// list 이용하기
-
-// function permutation(items) {
-//   const resItems = [];
-
-//   getPermutation(items, [], resItems);
-
-//   return resItems;
-// }
-
-// function getPermutation(items, curItems, resItems) {
-//   if (!items.length && curItems.length) {
-//     resItems.push(curItems);
-
-//     return;
-//   }
-
-//   for (let i = 0; i < items.length; i += 1) {
-//     const newItems = items.slice(0, i).concat(items.slice(i + 1)); // items[i] 제외
-//     const newCurItems = curItems.concat([items[i]]);
-
-//     getPermutation(newItems, newCurItems, resItems);
-//   }
-// }
-
-// pointer 이용하기
-
+// 1. 잘라내기
 function permutation(items) {
   const resItems = [];
 
-  getPermutation(0, items, resItems);
+  getPermutation(items, [], resItems);
 
   return resItems;
 }
 
-function getPermutation(startI, items, resItems) {
-  if (startI === items.length - 1) {
-    resItems.push([...items]); // clone
+function getPermutation(items, curItems, resItems) {
+  if (!items.length && curItems.length) {
+    resItems.push(curItems);
 
     return;
   }
+  for (let i = 0; i < items.length; i += 1) {
+    const newItems = items.slice(0, i).concat(items.slice(i + 1, items.length));
+    const newCurItems = curItems.concat([items[i]]);
 
-  for (let i = startI; i < items.length; i += 1) {
-    [items[i], items[startI]] = [items[startI], items[i]];
-
-    console.log(`i: ${i}, startI: ${startI} -> ${items}`);
-
-    getPermutation(startI + 1, items, resItems);
-
-    [items[i], items[startI]] = [items[startI], items[i]]; // recover
+    getPermutation(newItems, newCurItems, resItems);
   }
 }
 
 console.log(permutation([1, 2, 3]));
 
-// startI 가 i 에 위치한다.
+// 2. 위치 스왑
+function _permutation(items) {
+  const resItems = [];
 
-// [1, 2, 3] 00
-//  -> [1, 2, 3] 11
-//  -> [1, 3, 2] 12
+  _getPermutation(items, 0, resItems);
 
-// [2, 1, 3] 01
-//  -> [2, 1, 3] 11
-//  -> {2, 3, 1} 12
+  return resItems;
+}
 
-// [3, 2, 1] 02
-//  -> [3, 2, 1] 11
-//  -> [3, 1, 2] 12
+function _getPermutation(items, startI, resItems) {
+  for (let i = startI; i < items.length; i += 1) {
+    [items[i], items[startI]] = [items[startI], items[i]];
+
+    _getPermutation(items, startI + 1, resItems);
+
+    [items[i], items[startI]] = [items[startI], items[i]];
+  }
+}
+
+console.log(_permutation([1, 2, 3]));
