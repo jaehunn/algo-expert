@@ -38,3 +38,5 @@ function _powerset(array: number[]) {
 
   return subSets;
 }
+
+function _powerSet() {}
