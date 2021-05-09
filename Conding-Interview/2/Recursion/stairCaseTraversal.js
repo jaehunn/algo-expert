@@ -58,15 +58,17 @@
 }
 
 {
-  // wip
+  // wip...
   function staircaseTraversal(height, maxSteps) {
     let currentNumberOfWays = 0;
 
-    const waysToTop = [1];
+    const waysToTop = [1]; // currentNumberOfWays: 0 -> 1
 
     for (let currentHeight = 1; currentHeight <= height; currentHeight += 1) {
       const startOfWindow = currentHeight - maxSteps - 1;
       const endOfWindow = currentHeight - 1;
+
+      // maxSteps = 2 <startOfWindow - ? - ? - endOfWindow>
 
       if (startOfWindow >= 0) currentNumberOfWays -= waysToTop[startOfWindow];
 
