@@ -23,17 +23,18 @@
 
 // 탑다운 O(k^n) / O(n)
 function staircaseTraversal(height, maxSteps) {
-    return numberOfWaysToTop(height, maxSteps);
-} 
-
-function numberOfWaysToTop(height, maxSteps) {
-    if (height <= 1) return 1;
-
-    let numberOfWays = 0;
-    for (let step = 1; step <= Math.min(height, maxSteps); step += 1) {
-        numberOfWays += numberOfWaysToTop(height - step, maxSteps);
-    }
-
-    return numberOfWays
+  return numberOfWaysToTop(height, maxSteps);
 }
 
+function numberOfWaysToTop(height, maxSteps) {
+  if (height <= 1) return 1;
+
+  let numberOfWays = 0;
+  for (let step = 1; step <= Math.min(height, maxSteps); step += 1) {
+    numberOfWays += numberOfWaysToTop(height - step, maxSteps);
+  }
+
+  return numberOfWays;
+}
+
+// height: 4,  maxSteps: 2
