@@ -1,6 +1,6 @@
 // T: O(n)
 // S: O(1)
-function solution1(array: number[], sequence: number[]) {
+export default function solution1(array: number[], sequence: number[]) {
   let arrIdx = 0;
   let seqIdx = 0;
 

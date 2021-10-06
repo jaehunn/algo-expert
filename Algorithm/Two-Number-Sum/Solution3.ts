@@ -1,6 +1,6 @@
 // T: O(nlog(n))
 // S: O(1)
-function Solution3(array: number[], targetSum: number) {
+export default function Solution3(array: number[], targetSum: number) {
   array.sort((a, b) => a - b);
 
   let left = 0;

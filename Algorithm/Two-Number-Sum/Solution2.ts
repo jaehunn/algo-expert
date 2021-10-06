@@ -1,6 +1,6 @@
 // T: O(n)
 // S: O(n)
-function Solution2(array: number[], targetSum: number) {
+export default function Solution2(array: number[], targetSum: number) {
   const nums: { [key: number]: boolean } = {};
 
   for (const num of array) {
