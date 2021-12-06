@@ -25,7 +25,7 @@ function constructMinHeightBST(
   startIdx = 0,
   endIdx = array.length - 1
 ) {
-  if (endIdx > startIdx) return;
+  if (endIdx < startIdx) return;
 
   const midIdx = Math.floor((startIdx + endIdx) / 2);
   const valueToAdd = array[midIdx];
